@@ -12,18 +12,14 @@ class TaskPostRequest : AsyncTask<Void, Void, String> {
     lateinit var requestBody: RequestBody
     lateinit var onGetResponse : onGetResponse
     var error = ""
-
     constructor(Url: String, requestBody: RequestBody, onGetResponse: onGetResponse) : super() {
         this.Url = Url
         this.requestBody = requestBody
         this.onGetResponse = onGetResponse
     }
-
-
     override fun onPreExecute() {
         super.onPreExecute()
     }
-
     override fun doInBackground(vararg params: Void?): String {
         var body = ""
         val client = OkHttpClient()
@@ -31,7 +27,6 @@ class TaskPostRequest : AsyncTask<Void, Void, String> {
             .url(this.Url)
             .post(requestBody)
             .build()
-
         try {
             val response = client.newCall(request).execute()
             body = response.body!!.string()
@@ -40,11 +35,8 @@ class TaskPostRequest : AsyncTask<Void, Void, String> {
             e.printStackTrace()
             error += e.message!!
         }
-
         return body
     }
-
-
     override fun onPostExecute(body: String) {
         super.onPostExecute(body)
         if (error != ""){

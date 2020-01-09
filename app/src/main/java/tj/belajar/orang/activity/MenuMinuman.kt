@@ -29,38 +29,26 @@ class MenuMinuman : AppCompatActivity() {
     lateinit var context: Context
     private var list: ArrayList<Minuman> = ArrayList()
     lateinit var listMinum: AdapterMinuman
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_minum)
         initWidget()
-
         pesanminum.setOnClickListener{
             startActivity(Intent(this, Sukses::class.java))
         }
-
     }
-
     fun initWidget() {
-
         context = this@MenuMinuman
-
         rv_menu.setHasFixedSize(true)
-
         btnMakanan1.setOnClickListener {
             startActivity(Intent(this, MenuMakanan::class.java))
             finish()
         }
-
-
         showRecyleView()
-
         TaskGetRequest("${StaticVariabel.baseURL}api/all_minuman.php", object : onGetResponse {
             override fun onError(message: String) {
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
-
             override fun onGetData(body: String) {
                 try {
                     val data = Gson().fromJson<AllMinuman>(body, AllMinuman::class.java)
@@ -75,7 +63,6 @@ class MenuMinuman : AppCompatActivity() {
             }
         }).execute()
     }
-
     private fun showRecyleView() {
         listMinum = AdapterMinuman(list)
         rv_menu.adapter = listMinum

@@ -18,16 +18,13 @@ import tj.belajar.orang.model.makan.Makanan
 import tj.belajar.orang.task.TaskGetRequest
 
 class MenuMakanan: AppCompatActivity() {
-
     lateinit var context: Context
     private var list:ArrayList<Makanan> = ArrayList()
     lateinit var listMakanan : AdapterMakanan
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_makan)
         initWidget()
-
         btnMinuman.setOnClickListener{
             startActivity(Intent(this, MenuMinuman::class.java))
             finish()
@@ -35,22 +32,11 @@ class MenuMakanan: AppCompatActivity() {
         pesanmakan.setOnClickListener{
             startActivity(Intent(this, Sukses::class.java))
         }
-
     }
-
     fun initWidget(){
-
         context = this@MenuMakanan
-
         rv_menu.setHasFixedSize(true)
-
-        /*btnMinuman.setOnClickListener{
-            startActivity(Intent(this, MenuMinuman::class.java))
-            finish()
-        }*/
-
         showRecyleView()
-
         TaskGetRequest("${StaticVariabel.baseURL}api/all_makanan.php",object : onGetResponse {
             override fun onError(message: String) {
                 Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
@@ -68,7 +54,6 @@ class MenuMakanan: AppCompatActivity() {
             }
         }).execute()
     }
-
     private fun showRecyleView() {
         listMakanan = AdapterMakanan(list)
         rv_menu.adapter = listMakanan
